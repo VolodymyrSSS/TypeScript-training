@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import '../../index.css';
+
 interface LoginProps {
 	initialUsername?: string;
 }
@@ -43,8 +45,8 @@ const Login: React.FC<LoginProps> = ({ initialUsername = '' }) => {
 			{successMessage && <div className='success'>{successMessage}</div>}
 
 			<form onSubmit={handleLogin}>
-				<label htmlFor='username'>
-					Username:
+				<label htmlFor='username' className='label'>
+					Username:{' '}
 					<input
 						type='text'
 						id='username'
@@ -53,8 +55,8 @@ const Login: React.FC<LoginProps> = ({ initialUsername = '' }) => {
 					/>
 				</label>
 				<br />
-				<label htmlFor='password'>
-					Password:
+				<label htmlFor='password' className='label'>
+					Password:{' '}
 					<input
 						type='password'
 						id='password'
@@ -62,7 +64,10 @@ const Login: React.FC<LoginProps> = ({ initialUsername = '' }) => {
 						onChange={(e) => setPassword(e.target.value)}
 					/>
 				</label>
-				<button type='submit'>Login</button>
+				<br />
+				<button type='submit' className='button-login'>
+					Login
+				</button>
 			</form>
 		</>
 	);

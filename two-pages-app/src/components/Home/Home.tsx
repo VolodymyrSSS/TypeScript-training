@@ -3,7 +3,8 @@
 // It should have a list of todos that are paginated
 // It should show 3 todos per page
 
-import React, { useState } from 'react';
+import { useState } from 'react';
+import TodoCard from '../../components/TodoCard/TodoCard';
 import data from '../../data.json';
 import { paginate } from '../../utils/paginate'; // adjust the path
 
@@ -48,10 +49,12 @@ const Home: React.FC<{ username: string }> = ({ username }) => {
 		<>
 			<h2>HELLO {username}</h2>
 			<ul>
-				{currentPageItems.map((item: ListItemData, index: number) => (
-					<li key={username + '-' + index}>
-						{item.title} {item.description}
-					</li>
+				{currentPageItems.map((todo: ListItemData) => (
+					<TodoCard
+						key={`${username}-${todo.title}`}
+						title={todo.title}
+						description={todo.description}
+					/>
 				))}
 			</ul>
 			{/* Pagination */}

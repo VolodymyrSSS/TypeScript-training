@@ -10,6 +10,22 @@ body {
 		Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+input[type='text'],
+input[type='password'] {
+	width: 60%;
+	padding: 12px 14px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+.label {
+	color: white;
+	font-size: calc(10px + 2vmin);
+}
+
 h3 {
 	color: navy;
 }
@@ -17,4 +33,38 @@ h3 {
 li {
 	list-style-type: none;
 	font-size: calc(10px + 2vmin);
+}
+
+.button-login {
+	background-color: #008cba;
+	border: none;
+	color: white;
+	padding: 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	border-radius: 8px;
+	opacity: 0.6;
+	transition: 0.3s;
+	margin: 4px 2px;
+	cursor: pointer;
+}
+
+.button-login: hover {
+	opacity: 1;
+}
+
+.todo-card {
+	border: 2px solid #cccccc;
+	border-radius: 5px;
+	padding: 5px;
+	margin: 10px;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.error,
+.success {
+	color: orange;
+	font-size: calc(5px + 2vmin);
 }
