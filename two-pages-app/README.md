@@ -7,6 +7,7 @@ It should have Login Title
 it should have inputfield for username
 it should have inputfied for password
 it should have a button to login that redirects to home page
+if you can make a simple login validation
 
 Build Home page
 It should have username in the title
