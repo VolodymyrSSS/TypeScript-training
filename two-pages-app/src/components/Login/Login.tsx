@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import '../../index.css';
@@ -13,6 +13,15 @@ const Login: React.FC<LoginProps> = ({ initialUsername = '' }) => {
 	const [password, setPassword] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
 	const [successMessage, setSuccessMessage] = useState('');
+
+	// you now have access to each input field in your DOM
+	const usernameInputRef = useRef<HTMLInputElement>(null);
+	const passwordInputRef = useRef<HTMLInputElement>(null);
+	// when component mounts - username field automatically gets
+	// focus when the component renders by using the useEffect hook
+	useEffect(() => {
+		usernameInputRef.current?.focus();
+	}, []);
 
 	// event type React.FormEvent is a React SyntheticEvent wrapper
 	// around the native JavaScript event related to forms
@@ -52,6 +61,7 @@ const Login: React.FC<LoginProps> = ({ initialUsername = '' }) => {
 						id='username'
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
+						ref={usernameInputRef}
 					/>
 				</label>
 				<br />
@@ -62,6 +72,8 @@ const Login: React.FC<LoginProps> = ({ initialUsername = '' }) => {
 						id='password'
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
+						ref={passwordInputRef}
+						// the ref does not cause an auto focus
 					/>
 				</label>
 				<br />
