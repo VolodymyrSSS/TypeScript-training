@@ -1,3 +1,4 @@
+import React from 'react';
 import { DataComments } from '../../../types/index';
 import Comment from '../Comment/Comment';
 
