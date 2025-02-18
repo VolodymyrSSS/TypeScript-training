@@ -1,7 +1,7 @@
 // useMediaQuery:  Handle Responsive Design
 // Managing media queries in React can be made easier with this hook.
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function useMediaQuery(query: string): boolean {
 	const [matches, setMatches] = useState(false);
@@ -24,4 +24,4 @@ export default useMediaQuery;
 // Usage:
 const isMobile = useMediaQuery('(max-width: 768px)');
 
-return <p>{isMobile ? 'Mobile View' : 'Desktop View'}</p>;
+<p>{isMobile ? 'Mobile View' : 'Desktop View'}</p>;
