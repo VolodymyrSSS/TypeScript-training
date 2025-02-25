@@ -9,5 +9,14 @@ export default function Button({
 	onClick,
 	children,
 }: ButtonProps): React.ReactElement {
-	return <button onClick={onClick}>{children}</button>;
+	return (
+		<button
+			onClick={(e) => {
+				e.stopPropagation(); // to prevent propagation upwards
+				onClick();
+			}}
+		>
+			{children}
+		</button>
+	);
 }
