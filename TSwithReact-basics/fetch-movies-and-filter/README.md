@@ -64,7 +64,7 @@ In case need to update
 
 3. To install TypeScript project
 
-### `npx create-react-app my-project-name --template typescriptc`
+### `npx create-react-app my-project-name --template typescript`
 
 ## (if it doesn't work, install TS with Parcel)
 
