@@ -14,6 +14,26 @@ cd TypeScript-training
 npm install
 ```
 
+### 1.1.2. Initialize a new Project Folder
+
+If you want to start a new project in a new folder:
+create a new folder withe a project name. Than go into that folder and
+Inside that folder, make sure you have a package.json entry. If not, create one:
+
+cd newProjectName
+
+```bash
+npm init -y
+```
+
+After, add TypeScript and ts-node if they’re not already installed at the root:
+
+```bash
+npm install typescript ts-node --save-dev
+```
+
+Since you already might have them in the root, this step may be redundant — but it’s safe.
+
 ---
 
 ## 2. Running the Projects

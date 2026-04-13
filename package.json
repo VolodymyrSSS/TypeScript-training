@@ -6,6 +6,7 @@
     "basic1",
     "basic2",
     "comments",
+    "simple-task-list",
     "two-pages-app"
   ],
   "dependencies": {
