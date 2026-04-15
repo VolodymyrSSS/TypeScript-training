@@ -1649,4 +1649,344 @@ console.log(workstation.id); // 1001
 webServer.restart(); // Restarting web-01 server...
 
 //============================== 31 =================================
-// EN:
+// EN: Create a numeric enum named UserRole with three members: Admin,
+//     Editor, and Viewer. Create three variables to demonstrate the
+//     enum values:
+//     - adminRole of type UserRole and assign it UserRole.Admin;
+//     - editorRole of type UserRole and assign it UserRole.Editor;
+//     - viewerRole of type UserRole and assign it UserRole.Viewer;
+//     Print the following outputs on separate lines:
+//     - Print the value of adminRole;
+//     - Print the value of editorRole;
+//     - Print the value of viewerRole;
+//     - Print the numeric value of UserRole.Admin;
+//     - Print the numeric value of UserRole.Editor;
+//     - Print the numeric value of UserRole.Viewer.
+
+// Solution:
+// Create the UserRole enum and variables as described in the challenge
+enum UserRole {
+  Admin,
+  Editor,
+  Viewer,
+}
+
+// Create three variables to get the enum values
+let adminRole: UserRole = UserRole.Admin;
+let editorRole: UserRole = UserRole.Editor;
+let viewerRole: UserRole = UserRole.Viewer;
+// Print the required outputs
+console.log(adminRole);
+console.log(editorRole);
+console.log(viewerRole);
+
+console.log(UserRole.Admin);
+console.log(UserRole.Editor);
+console.log(UserRole.Viewer);
+
+//============================== 32 =================================
+// EN: Create a function named checkPermissions that takes one parameter:
+//     - role of type UserRole (using the enum from the previous lesson);
+//     The function should:
+//     - Check the role value and print different messages based on the role;
+//     If the role is UserRole.Admin, print "Full access granted";
+//     - If the role is UserRole.Editor, print "Edit access granted"
+//     - For any other role, print "View access only"
+//     - Have a return type of void
+//     - You are provided with the following from the previous challenge:
+//     - The UserRole enum with Admin, Editor, and Viewer members;
+//     - Variables: adminRole, editorRole, and viewerRole
+//     - Create a variable named currentUser of type UserRole and assign
+//       it UserRole.Editor.
+//     Create a variable named guestUser of type UserRole and assign it
+//     the numeric value 2.
+//     Print the following outputs by calling your checkPermissions function:
+//     - Call checkPermissions with adminRole;
+//     - Call checkPermissions with currentUser;
+//     - Call checkPermissions with guestUser;
+//     - Call checkPermissions with UserRole.Admin;
+//     - Call checkPermissions with the numeric value 0.
+
+// Solution:
+// Create the checkPermissions function
+function checkPermissions(role: UserRole): void {
+  if (role === UserRole.Admin) {
+    console.log("Full access granted");
+  } else if (role === UserRole.Editor) {
+    console.log("Edit access granted");
+  } else {
+    console.log("View access only");
+  }
+}
+// Create currentUser variable
+let currentUser2: UserRole = UserRole.Editor;
+// Create guestUser variable
+let guestUser2: UserRole = 2;
+// Call checkPermissions with the required parameters
+checkPermissions(adminRole);
+checkPermissions(currentUser2);
+checkPermissions(guestUser2);
+checkPermissions(UserRole.Admin);
+checkPermissions(0);
+
+//============================== 33 =================================
+/* Create a string enum named Direction with four members:
+    - Up initialized to "UP"
+    - Down initialized to "DOWN"
+    - Left initialized to "LEFT"
+    - Right initialized to "RIGHT"
+   Create four variables to demonstrate the enum values:
+    - upDirection of type Direction and assign it Direction.Up
+    - downDirection of type Direction and assign it Direction.Down
+    - leftDirection of type Direction and assign it Direction.Left
+    - rightDirection of type Direction and assign it Direction.Right
+   Print the following outputs on separate lines:
+    - Print the value of upDirection
+    - Print the value of downDirection
+    - Print the value of leftDirection
+    - Print the value of rightDirection
+    - Print the string value of Direction.Up
+    - Print the string value of Direction.Down
+*/
+
+// Solution:
+/* Each enum member is explicitly initialized with a string value.
+   Variables like upDirection are typed as Direction, ensuring type safety.*/
+enum Direction2 {
+  Up = "UP",
+  Down = "DOWN",
+  Left = "LEFT",
+  Right = "RIGHT",
+}
+
+let upDirection: Direction2 = Direction2.Up;
+let downDirection: Direction2 = Direction2.Down;
+let leftDirection: Direction2 = Direction2.Left;
+let rightDirection: Direction2 = Direction2.Right;
+// Print the required outputs
+console.log(upDirection); // UP
+console.log(downDirection); // DOWN
+console.log(leftDirection); // LEFT
+console.log(rightDirection); // RIGHT
+// Printing Direction2.Up directly also yields "UP" since enums are just objects mapping keys to values.
+console.log(Direction2.Up); // UP
+console.log(Direction2.Down); // DOWN
+
+//============================== 34 =================================
+/*
+  You are provided with the following from the previous challenge:
+  The Direction string enum with Up, Down, Left, and Right members
+  Variables: upDirection, downDirection, leftDirection, and rightDirection
+  Create a function named move that takes one parameter: 
+    - direction of type Direction
+  The function should:
+  - Print a message in the format "Moving [direction]..." where [direction] 
+    is the lowercase version of the enum's string value;
+  - Have a return type of void
+  Create a function named getMovementDescription that takes one parameter:
+  - direction of type Direction
+  The function should:
+  - Return a string describing the movement based on the direction:
+    -For Direction.Up: return "Going upward"
+    -For Direction.Down: return "Going downward"
+    -For Direction.Left: return "Turning left"
+    -For Direction.Right: return "Turning right"
+    -Have an explicit return type of string
+  Create a variable named playerDirection of type Direction and assign it Direction.Up.
+  Print the following outputs:
+  - Call move with Direction.Up
+  - Call move with leftDirection
+  - Call move with playerDirection
+  - Print the result of calling getMovementDescription with Direction.Down
+  - Print the result of calling getMovementDescription with rightDirection
+  - Call move with Direction.Right
+*/
+// Solution:
+function move(direction: Direction2): void {
+  console.log(`Moving ${direction.toLowerCase()}...`);
+}
+
+// Here, TypeScript knows all enum members are covered, so no error
+function getMovementDescription(direction: Direction2): string {
+  switch (direction) {
+    case Direction2.Up:
+      return "Going upward";
+    case Direction2.Down:
+      return "Going downward";
+    case Direction2.Left:
+      return "Turning left";
+    case Direction2.Right:
+      return "Turning right";
+  }
+}
+/* таке саме рішення але додано fallback
+function getMovementDescription(direction: Direction2): string {
+  if (direction === Direction2.Up) {
+    return "Going upward";
+  } else if (direction === Direction2.Down) {
+    return "Going downward";
+  } else if (direction === Direction2.Left) {
+    return "Turning left";
+  } else if (direction === Direction2.Right) {
+    return "Turning right";
+  }
+  // fallback ensures all paths return a string
+  return "Unknown direction";
+}
+*/
+
+let playerDirection2: Direction2 = Direction2.Up;
+
+move(Direction2.Up);
+move(leftDirection);
+move(playerDirection2);
+console.log(getMovementDescription(Direction2.Down));
+console.log(getMovementDescription(rightDirection));
+move(Direction2.Right);
+
+//============================== 35 =================================
+/*
+  Create a heterogeneous enum named ResponseCode that mixes string and numeric values:
+  - Success initialized to 200
+  - Error initialized to "ERROR"
+  - NotFound initialized to 404
+  - Timeout initialized to "TIMEOUT"
+  Create a function named handleResponse that takes one parameter:
+    - code of type ResponseCode
+  The function should:
+  - Check the response code and print different messages based on the value
+  - If the code is ResponseCode.Success, print "Request successful"
+  - If the code is ResponseCode.Error, print "General error occurred"
+  - If the code is ResponseCode.NotFound, print "Resource not found"
+  - If the code is ResponseCode.Timeout, print "Request timed out"
+  - Have a return type of void
+  Create four variables to demonstrate the enum values:
+  - successCode of type ResponseCode and assign it ResponseCode.Success
+  - errorCode of type ResponseCode and assign it ResponseCode.Error
+  - notFoundCode of type ResponseCode and assign it ResponseCode.NotFound
+  - timeoutCode of type ResponseCode and assign it ResponseCode.Timeout
+  Print the following outputs:
+  - Print the value of successCode
+  - Print the value of errorCode
+  - Print the value of notFoundCode
+  - Print the value of timeoutCode
+  - Call handleResponse with ResponseCode.Success
+  - Call handleResponse with errorCode
+  - Call handleResponse with the numeric value 404
+*/
+
+// Solution:
+/* Heterogeneous enums are allowed in TypeScript, but they’re unusual. They mix 
+  numeric and string values, which can sometimes make type checking less predictable.
+  Your handleResponse function works fine because the switch compares against the 
+  enum members directly.
+*/
+enum ResponseCode {
+  Success = 200,
+  Error = "ERROR",
+  NotFound = 404,
+  Timeout = "TIMEOUT",
+}
+// Create the handleResponse function
+function handleResponse(code: ResponseCode): void {
+  switch (code) {
+    case ResponseCode.Success:
+      console.log("Request successful");
+      break;
+    case ResponseCode.Error:
+      console.log("General error occurred");
+      break;
+    case ResponseCode.NotFound:
+      console.log("Resource not found");
+      break;
+    case ResponseCode.Timeout:
+      console.log("Request timed out");
+      break;
+  }
+}
+
+let successCode: ResponseCode = ResponseCode.Success;
+let errorCode: ResponseCode = ResponseCode.Error;
+let notFoundCode: ResponseCode = ResponseCode.NotFound;
+let timeoutCode: ResponseCode = ResponseCode.Timeout;
+
+console.log(successCode);
+console.log(errorCode);
+console.log(notFoundCode);
+console.log(timeoutCode);
+handleResponse(ResponseCode.Success);
+handleResponse(errorCode);
+handleResponse(404);
+/*The last call handleResponse(404) is valid, but note that TypeScript doesn’t enforce
+  strictness here — you can pass the raw number or string if it matches an enum member.
+  This is one of the quirks of heterogeneous enums: they don’t give you the same compile
+  time safety guarantees as pure string enums.
+*/
+
+//============================== 36 =================================
+/* 
+  Create a string enum named OrderStatus with four members:
+  - Pending initialized to "Pending";
+  - Shipped initialized to "Shipped";
+  - Delivered initialized to "Delivered";
+  - Cancelled initialized to "Cancelled";
+  Create an interface named Order with the following properties:
+  - id of type number
+  - customerName of type string;
+  - status of type OrderStatus;
+  Create three order objects using the Order interface:
+  - order1 with id 1001, customerName "Alice Johnson", and status OrderStatus.Pending;
+  - order2 with id 1002, customerName "Bob Smith", and status OrderStatus.Shipped;
+  - order3 with id 1003, customerName "Carol Davis", and status OrderStatus.Delivered;
+  Create a function named displayOrderInfo that takes one parameter:
+  - order of type Order
+  The function should print a message in the format: "Order #[id] for [customerName] 
+  is [status]" and have a return type of void.
+  Print the following outputs:
+  - Call displayOrderInfo with order1;
+  - Call displayOrderInfo with order2;
+  - Call displayOrderInfo with order3;
+  - Print the value of OrderStatus.Cancelled;
+  - Print the value of order2.status.
+*/
+// Solution:
+enum OrderStatus {
+  Pending = "Pending",
+  Shipped = "Shipped",
+  Delivered = "Delivered",
+  Cancelled = "Cancelled",
+}
+
+interface Order {
+  id: number;
+  customerName: string;
+  status: OrderStatus;
+}
+
+let order1: Order = {
+  id: 1001,
+  customerName: "Alice Johnson",
+  status: OrderStatus.Pending,
+};
+let order2: Order = {
+  id: 1002,
+  customerName: "Bob Smith",
+  status: OrderStatus.Shipped,
+};
+let order3: Order = {
+  id: 1003,
+  customerName: "Carol Davis",
+  status: OrderStatus.Delivered,
+};
+
+function displayOrderInfo(order: Order): void {
+  console.log(
+    `Order #${order.id} for ${order.customerName} is ${order.status}`,
+  );
+}
+
+displayOrderInfo(order1);
+displayOrderInfo(order2);
+displayOrderInfo(order3);
+console.log(OrderStatus.Cancelled);
+console.log(order2.status);
