@@ -1990,3 +1990,260 @@ displayOrderInfo(order2);
 displayOrderInfo(order3);
 console.log(OrderStatus.Cancelled);
 console.log(order2.status);
+
+//============================== 37 =================================
+/*
+  Create a generic function named wrapInObject that takes an argument
+  of any type and returns an object containing that value. The function
+  should:
+  - Use a generic type parameter T;
+  - Accept one parameter named item of type T;
+  - Return an object with a single property value of type T;
+  - Have an explicit return type annotation;
+  Create the following variables to test your function:
+  - wrappedString - call wrapInObject with the string "Hello TypeScript"
+  - wrappedNumber - call wrapInObject with the number 42
+  - wrappedBoolean - call wrapInObject with the boolean true
+  Print the following outputs:
+   - Print wrappedString.value
+   - Print wrappedNumber.value
+   - Print wrappedBoolean.value
+   - Print the result of calling wrapInObject with the string "Generic", accessing the value property
+   - Print the result of calling wrapInObject with the number 100, accessing the value property
+*/
+
+// Solution:
+/*Символ <T> після назви функції оголошує тип параметру під назвою "T". 
+  Цей "T" діє як тимчасовий символ, який може представляти будь-який тип. 
+  Коли функція буде викликатись, TypeScript замінить "T" на фактичний тип, 
+  який буде заданий в аргументах .*/
+
+function wrapInObject<T>(item: T): { value: T } {
+  return { value: item };
+}
+
+// Arrow-function version of wrapInObject
+// const wrapInObject = <T>(item: T): { value: T } => ({ value: item });
+
+const wrappedString = wrapInObject("Hello TypeScript");
+const wrappedNumber = wrapInObject(42);
+const wrappedBoolean = wrapInObject(true);
+
+console.log(wrappedString.value); // Hello TypeScript
+console.log(wrappedNumber.value); // 42
+console.log(wrappedBoolean.value); // true
+console.log(wrapInObject("Generic").value); // Generic
+console.log(wrapInObject(100).value); // 100
+
+//============================== 38 =================================
+/*
+  You are provided with the following from the previous challenge:
+  The generic function wrapInObject<T> that takes an item of type T 
+  and returns { value: T }. Call the wrapInObject function using both
+  explicit type arguments and type inference:
+  1. Using explicit type arguments:
+  - Create a variable explicitString by calling wrapInObject<string>
+  with "TypeScript";
+  - Create a variable explicitNumber by calling wrapInObject<number> with 25;
+  - Create a variable explicitBoolean by calling wrapInObject<boolean> 
+    with false. 
+  2. Using type inference:
+  - Create a variable inferredString by calling wrapInObject with "Generics"
+    (let TypeScript infer the type);
+  - Create a variable inferredNumber by calling wrapInObject with 99 (let 
+    TypeScript infer the type);
+  - Create a variable inferredBoolean by calling wrapInObject with true
+    (let TypeScript infer the type);
+  Print the following outputs:
+  - Print explicitString.value;
+  - Print explicitNumber.value;
+  - Print explicitBoolean.value;
+  - Print inferredString.value;
+  - Print inferredNumber.value;
+  - Print inferredBoolean.value.
+*/
+
+// Solution:
+// variables using explicit type arguments
+let explicitString = wrapInObject<string>("TypeScript");
+let explicitNumber = wrapInObject<number>(25);
+let explicitBoolean = wrapInObject<boolean>(false);
+// variables using type inference
+let inferredString = wrapInObject("Generics");
+let inferredNumber = wrapInObject(99);
+let inferredBoolean = wrapInObject(true);
+// the results
+console.log(explicitString.value); // TypeScript
+console.log(explicitNumber.value); // 25
+console.log(explicitBoolean.value); // false
+
+console.log(inferredString.value); // Generics
+console.log(inferredNumber.value); // 99
+console.log(inferredBoolean.value); // true
+
+//============================== 39 =================================
+/*
+  Create a generic function named getFirstElement that takes an array of
+  any type and returns the first element or undefined if the array is empty.
+  The function should:
+  - Use a generic type parameter T;
+  - Accept one parameter named arr of type Array<T>;
+  - Return the first element of type T or undefined;
+  - Have an explicit return type annotation of T | undefined.
+  Create the following arrays using the Array<T> syntax:
+  - stringArray of type Array<string> containing ["apple", "banana", "cherry"];
+  - numberArray of type Array<number> containing [10, 20, 30, 40];
+  - booleanArray of type Array<boolean> containing [true, false, true];
+  - emptyStringArray of type Array<string> that is empty.
+  Test your function and print the following outputs:
+  - Print the result of calling getFirstElement with stringArray;
+  - Print the result of calling getFirstElement with numberArray;
+  - Print the result of calling getFirstElement with booleanArray;
+  - Print the result of calling getFirstElement with emptyStringArray;
+  - Print the result of calling getFirstElement with a new Array<string>
+    containing ["single"].
+*/
+
+// Solution:
+function getFirstElement<T>(arr: Array<T>): T | undefined {
+  if (arr.length !== 0) {
+    return arr[0];
+  }
+  return undefined;
+}
+// Create the required arrays using Array<T> syntax
+let stringArray: Array<string> = ["apple", "banana", "cherry"];
+let numberArray: Array<number> = [10, 20, 30, 40];
+let booleanArray: Array<boolean> = [true, false, true];
+let emptyStringArray: Array<string> = [];
+// Test the function and print the results
+console.log(getFirstElement(stringArray)); // apple
+console.log(getFirstElement(numberArray)); // 10
+console.log(getFirstElement(booleanArray)); // true
+console.log(getFirstElement(emptyStringArray)); // undefined
+console.log(getFirstElement(["single"])); // single
+
+//============================== 40 =================================
+/*
+  Create a generic interface named Result that can hold data of any type 
+  along with success information. The interface should have two properties:
+  - success of type boolean;
+  - data of type T (the generic type parameter);
+  Create the following objects using your generic interface:
+  - stringResult of type Result<string> with success: true and data: "Operation completed"
+  - numberResult of type Result<number> with success: true and data: 42
+  - booleanResult of type Result<boolean> with success: false and data: false
+  - arrayResult of type Result<string[]> with success: true and data: ["item1", "item2", "item3"]
+  Create a generic function named processResult that:
+  - Uses a generic type parameter T
+  - Takes one parameter result of type Result<T>
+  Returns a string message
+  - If success is true, returns "Success: [data]"
+  - If success is false, returns "Failed: [data]"
+  Print the following outputs:
+  - Print the result of calling processResult with stringResult
+  - Print the result of calling processResult with numberResult
+  - Print the result of calling processResult with booleanResult
+  - Print the result of calling processResult with arrayResult
+  - Print stringResult.data
+*/
+
+// Solution:
+// Create the generic Result interface
+interface Result1<T> {
+  success: boolean;
+  data: T;
+}
+// Create the objects using the Result interface
+const stringResult: Result1<string> = {
+  success: true,
+  data: "Operation completed",
+};
+const numberResult: Result1<number> = {
+  success: true,
+  data: 42,
+};
+const booleanResult: Result1<boolean> = {
+  success: false,
+  data: false,
+};
+const arrayResult: Result1<string[]> = {
+  success: true,
+  data: ["item1", "item2", "item3"],
+};
+// Create the generic processResult function
+function processResult1<T>(result: Result1<T>): string {
+  if (result.success) {
+    return `Success: ${result.data}`;
+  } else {
+    return `Failed: ${result.data}`;
+  }
+}
+// Print the required outputs
+console.log(processResult1(stringResult)); // Success: Operation completed
+console.log(processResult1(numberResult)); // Success: 42
+console.log(processResult1(booleanResult)); // Failed: false
+console.log(processResult1(arrayResult)); // Success: item1,item2,item3
+console.log(stringResult.data); // Operation completed
+
+//============================== 41 =================================
+/*
+  Create a generic function named makePair that takes two arguments of 
+  different types and returns them as a tuple. The function should:
+  - Use two generic type parameters T and U;
+  - Accept a parameter first of type T;
+  - Accept a parameter second of type U;
+  - Return a tuple of type [T, U];
+  - Have an explicit return type annotation;
+  Test your function by creating the following variables:
+  - stringNumberPair - call makePair with "Hello" and 42;
+  - booleanStringPair - call makePair with true and "World";
+  - numberBooleanPair - call makePair with 100 and false;
+  Use destructuring to extract values from your tuples:
+  - Destructure stringNumberPair into variables text and num;
+  - Destructure booleanStringPair into variables flag and message.
+  Print the following outputs:
+  - Print text;
+  - Print num;
+  - Print flag;
+  - Print message;
+  - Print the first element of numberBooleanPair;
+  - Print the second element of numberBooleanPair;
+  - Print the result of calling makePair with "TypeScript" and 2024,
+    accessing the first element;
+  - Print the result of calling makePair with 99 and "bottles", 
+    accessing the second element.
+*/
+
+// Solution:
+// Generic makePair function
+function makePair<T, U>(first: T, second: U): [T, U] {
+  return [first, second];
+}
+// a one-liner style Generic makePair function
+// const makePair = <T, U>(first: T, second: U): [T, U] => [first, second];
+
+// with explicit naming will be:
+// function makePair<T, U>(first: T, second: U): [T, U] {
+//   const tuple: [T, U] = [first, second];
+//   return tuple;
+// }
+
+// Test variables
+let stringNumberPair = makePair("Hello", 42);
+let booleanStringPair = makePair(true, "World");
+let numberBooleanPair = makePair(100, false);
+
+// Destructuring
+let [text, num] = stringNumberPair;
+let [flag, message] = booleanStringPair;
+
+// Outputs
+console.log(text); // Hello
+console.log(num); // 42
+console.log(flag); // true
+console.log(message); // World
+console.log(numberBooleanPair[0]); // 100
+console.log(numberBooleanPair[1]); // false
+console.log(makePair("TypeScript", 2024)[0]); // TypeScript
+console.log(makePair(99, "bottles")[1]); // bottles
