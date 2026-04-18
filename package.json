@@ -6,6 +6,7 @@
     "basic1",
     "basic2",
     "comments",
+    "inventory-management",
     "simple-task-list",
     "two-pages-app"
   ],
@@ -30,6 +31,10 @@
     "build:basic2": "npm run build --workspace=basic2",
     "start:comments": "npm run start --workspace=comments",
     "build:comments": "npm run build --workspace=comments",
+    "start:inventory-management": "npm run start --workspace=inventory-management",
+    "build:inventory-management": "npm run build --workspace=inventory-management",
+    "start:simple-task-list": "npm run start --workspace=simple-task-list",
+    "build:simple-task-list": "npm run build --workspace=simple-task-list",
     "start:two-pages-app": "npm run start --workspace=two-pages-app",
     "build:two-pages-app": "npm run build --workspace=two-pages-app",
     "test:two-pages-app": "npm run test --workspace=two-pages-app"
