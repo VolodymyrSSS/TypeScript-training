@@ -2247,3 +2247,556 @@ console.log(numberBooleanPair[0]); // 100
 console.log(numberBooleanPair[1]); // false
 console.log(makePair("TypeScript", 2024)[0]); // TypeScript
 console.log(makePair(99, "bottles")[1]); // bottles
+
+//============================== 42 =================================
+/*
+  Create a function that processes data from an external API simulation.
+  You'll work with values of type unknown and use type assertions to 
+  safely access their properties.
+
+  Create a variable apiResponse of type unknown and assign it the 
+  following JSON string:
+  - {"userId": 42, "username": "alice_dev", "isActive": true}
+
+  Create a function named processUserData that:
+  - Takes a parameter data of type unknown;
+  - Uses a type assertion to treat data as a string;
+  - Parses the JSON string using JSON.parse();
+  - Uses another type assertion to treat the parsed result 
+    as an object with properties userId (number), username 
+    (string), and isActive (boolean);
+  - Returns a formatted string: "User [userId]: [username] 
+    (Active: [isActive])";
+  - Has an explicit return type of string.
+
+  Create additional test data:
+  - Create secondApiResponse of type unknown with the JSON string: 
+    {"userId": 15, "username": "bob_admin", "isActive": false}
+  - Create thirdApiResponse of type unknown with the JSON string: 
+    {"userId": 99, "username": "charlie_user", "isActive": true}
+
+  Test your function and print the following outputs:
+  - Call processUserData with apiResponse and print the result;
+  - Call processUserData with secondApiResponse and print the result;
+  - Call processUserData with thirdApiResponse and print the result.
+*/
+
+//Solution:
+/*TypeScript provides two syntaxes for type assertions. 
+  The as syntax is the more common approach:
+  let data: unknown = '{"name": "John", "age": 30}';
+  let user = data as string;
+
+  You can also use the angle-bracket syntax, though it's 
+  less common in modern TypeScript:
+  let data: unknown = '{"name": "John", "age": 30}';
+  let user = <string>data;
+*/
+// Create the API response variables
+const apiResponse: unknown =
+  '{"userId": 42, "username": "alice_dev", "isActive": true}';
+const secondApiResponse: unknown =
+  '{"userId": 15, "username": "bob_admin", "isActive": false}';
+const thirdApiResponse: unknown =
+  '{"userId": 99, "username": "charlie_user", "isActive": true}';
+
+// Create the processUserData function
+function processUserData(data: unknown): string {
+  // First assertion: treat data as a string
+  const jsonString = data as string;
+
+  // Parse JSON
+  const parsed = JSON.parse(jsonString);
+
+  // Inline type assertion
+  const user = parsed as {
+    userId: number;
+    username: string;
+    isActive: boolean;
+  };
+
+  // Return formatted string
+  return `User ${user.userId}: ${user.username} (Active: ${user.isActive})`;
+}
+
+// Test the function and print results
+console.log(processUserData(apiResponse)); // User 42: alice_dev (Active: true)
+console.log(processUserData(secondApiResponse)); // UserprocessUserData 15: bob_admin (Active: false)
+console.log(processUserData(thirdApiResponse)); // User 99: charlie_user (Active: true)processUserData
+
+//============================== 42 =================================
+/*
+  Create a function that processes different types of media items using 
+  the in operator to distinguish between them.
+
+  Create two type aliases:
+  - Movie with properties title (string) and director (string);
+  - Song with properties title (string) and artist (string);
+  
+  Create a function named getMediaInfo that:
+  - Takes a parameter media of type Movie | Song
+  - Uses the in operator to check if the director property exists
+  - Returns "Movie: [title] directed by [director]" if it's a movie
+  - Returns "Song: [title] by [artist]" if it's a song
+  - Has an explicit return type of string
+
+  Create a second function named processValue that:
+  - Takes a parameter value of type string | Date;
+  - Uses the instanceof operator to check if value is a Date;
+  - Returns the year as a number if it's a Date (using getFullYear());
+  - Returns the string length as a number if it's a string;
+  - Has an explicit return type of number;
+
+  Create test data:
+  movie1: { title: "Inception", director: "Christopher Nolan" }
+  song1: { title: "Bohemian Rhapsody", artist: "Queen" }
+  movie2: { title: "The Matrix", director: "The Wachowskis" }
+  song2: { title: "Imagine", artist: "John Lennon" }
+  testDate: new Date("2023-12-25")
+  testString: "TypeScript"
+
+  Print the following outputs:
+  - Call getMediaInfo with movie1
+  - Call getMediaInfo with song1
+  - Call getMediaInfo with movie2
+  - Call getMediaInfo with song2
+  - Call processValue with testDate
+  - Call processValue with testString
+*/
+
+// Solution:
+// Create type aliases for Movie and Song
+type Movie2 = { title: string; director: string };
+type Song = { title: string; artist: string };
+
+// Create the getMediaInfo function
+function getMediaInfo(media: Movie2 | Song): string {
+  if ("director" in media) {
+    return `Movie: ${media.title} directed by ${media.director}`;
+  } else {
+    return `Song: ${media.title} by ${media.artist}`;
+  }
+}
+
+/* Альтернатива: через стрілкову функцію та тернарний оператор
+const getMediaInfo = (media: Movie | Song): string =>
+  "director" in media
+    ? `Movie: ${media.title} directed by ${media.director}`
+    : `Song: ${media.title} by ${media.artist}`;
+*/
+
+// Create the processValue function
+function processValue2(value: string | Date): number {
+  if (value instanceof Date) {
+    return value.getFullYear();
+  } else {
+    return value.length;
+  }
+}
+/* Альтернатива: через стрілкову функцію та тернарний оператор
+  const processValue = (value: string | Date): number =>
+    value instanceof Date ? value.getFullYear() : value.length;
+*/
+
+// Create test data
+const movie1 = { title: "Inception", director: "Christopher Nolan" };
+const song1 = { title: "Bohemian Rhapsody", artist: "Queen" };
+const movie2 = { title: "The Matrix", director: "The Wachowskis" };
+const song2 = { title: "Imagine", artist: "John Lennon" };
+const testDate2 = new Date("2023-12-25");
+const testString2 = "TypeScript";
+
+// Print the outputs
+console.log(getMediaInfo(movie1)); // Inception directed by Christopher Nolan
+console.log(getMediaInfo(song1)); // Song: Bohemian Rhapsody by Queen
+console.log(getMediaInfo(movie2)); // Movie: The Matrix directed by The Wachowskis
+console.log(getMediaInfo(song2)); // Song: Imagine by John Lennon
+console.log(processValue2(testDate2)); // 2023
+console.log(processValue2(testString2)); // 10
+
+//============================== 43 =================================
+/*
+  Create a function named throwError that demonstrates the never return
+  type by always throwing an error and never returning normally.
+
+  The function should:
+  - Take a parameter message of type string;
+  - Throw a new Error with the provided message;
+  - Have an explicit return type of never.
+
+  Create a second function named handleOperation that:
+  - Takes two parameters: operation of type string and value of type number;
+  - Returns value * 2 if operation is "double";
+  - Returns value / 2 if operation is "half";
+  - Calls throwError with the message "Invalid operation: [operation]" 
+    for any other operation;
+  - Has an explicit return type of number.
+
+  Test your functions with the following operations:
+  - Call handleOperation("double", 5) and print the result;
+  - Call handleOperation("half", 8) and print the result;
+  - Call handleOperation("triple", 3) and print the result (this will throw an error).
+  
+  Create additional test cases:
+  - Call handleOperation("double", 15) and print the result;
+  - Call handleOperation("half", 20) and print the result.
+*/
+
+// Solution:
+/*
+  Тип never представляє значення, які ніколи не повертаються (не зустрічаються).  
+  Спочатку це може здатися заплутаним, але насправді це досить логічно, якщо 
+  подумати про певні сценарії у вашому коді.
+  Тип never найчастіше використовується для функцій, які ніколи не повертають
+  результат (значення) нормально. Сюди входять функції, які завжди викидають 
+  помилку або містять нескінченні цикли як от:
+  function infiniteLoop(): never {
+    while (true) {
+      // This loop never ends
+    }
+  }
+  На відміну від void, який вказує на те, що функція не повертає значущого значення,
+  never вказує на те, що функція взагалі ніколи не досягає своєї кінцевої точки. 
+  Виконання або зупиняється через помилку, або продовжується нескінченно довго.
+*/
+// Create the throwError function with never return type
+function throwError(message: string): never {
+  throw new Error(message);
+}
+/* Рішення через стрілкову фукцію
+  const throwError = (message: string): never => { 
+    throw new Error(message); 
+  };
+*/
+
+// Create the handleOperation function with number return type
+function handleOperation(operation: string, value: number): number {
+  if (operation === "double") {
+    return value * 2;
+  } else if (operation === "half") {
+    return value / 2;
+  } else {
+    throwError(`Invalid operation: ${operation}`);
+  }
+}
+/* Рішення через стрілкову фукцію
+  const handleOperation = (operation: string, value: number): number =>
+    operation === "double" ? value * 2 :
+    operation === "half"   ? value / 2 :
+    throwError(`Invalid operation: ${operation}`);
+*/
+
+// Test the functions with try-catch blocks
+try {
+  console.log(handleOperation("double", 5)); // 10
+} catch (error) {
+  console.log(`Error: ${(error as Error).message}`);
+}
+
+try {
+  console.log(handleOperation("half", 8)); // 4
+} catch (error) {
+  console.log(`Error: ${(error as Error).message}`);
+}
+
+try {
+  console.log(handleOperation("triple", 3));
+} catch (error) {
+  console.log(`Error: ${(error as Error).message}`); // Error: Invalid operation: triple
+}
+
+try {
+  console.log(handleOperation("double", 15)); // 30
+} catch (error) {
+  console.log(`Error: ${(error as Error).message}`);
+}
+
+try {
+  console.log(handleOperation("half", 20)); // 10
+} catch (error) {
+  console.log(`Error: ${(error as Error).message}`);
+}
+
+//============================== 44 =================================
+/*
+  Create a function that safely processes user profile data that might
+  contain null values. This challenge demonstrates how strictNullChecks
+  forces you to handle nullable types explicitly.
+
+  Create a function named getUserDisplayName that:
+  - Takes a parameter fullName of type string | null;
+  - Returns the full name if it's not null;
+  - Returns "Anonymous User" if the full name is null;
+  - Has an explicit return type of string.
+
+  Create a second function named formatUserEmail that:
+  - Takes a parameter email of type string | null;
+  - Returns the email in lowercase if it's not null;
+  - Returns "No email provided" if the email is null;
+  - Has an explicit return type of string.
+
+  Create a third function named getUserInfo that:
+  - Takes two parameters: name of type string | null and email of type string | null;
+  - Uses both previous functions to process the parameters;
+  - Returns a formatted string: "Name: [processed name], Email: [processed email]";
+  - Has an explicit return type of string.
+
+  Test your functions with the following data:
+  - Call getUserDisplayName("John Smith") and print the result;
+  - Call getUserDisplayName(null) and print the result;
+  - Call formatUserEmail("ALICE@EXAMPLE.COM") and print the result;
+  - Call formatUserEmail(null) and print the result;
+  - Call getUserInfo("Bob Johnson", "bob@test.com") and print the result;
+  - Call getUserInfo(null, null) and print the result;
+  - Call getUserInfo("Sarah Wilson", null) and print the result.
+*/
+
+// Solution:
+// TODO: Write your code here
+// Create the getUserDisplayName function that takes fullName (string | null) and returns string
+function getUserDisplayName(fullName: string | null): string {
+  if (fullName !== null) {
+    return fullName;
+  } else {
+    return "Anonymous User";
+  }
+}
+/* Альтернативне рішення з стрілковою функцією та тернарним оператором
+const getUserDisplayName = (fullName: string | null): string =>
+  fullName !== null ? fullName : "Anonymous User" */
+
+// Create the formatUserEmail function that takes email (string | null) and returns string
+function formatUserEmail(email: string | null): string {
+  if (email !== null) {
+    return email.toLocaleLowerCase();
+  } else {
+    return "No email provided";
+  }
+}
+/* Альтернативне рішення з стрілковою функцією та тернарним оператором
+const formatUserEmail = (email: string | null): string =>
+  email !== null ? email.toLowerCase() : "No email provided"; */
+
+// Create the getUserInfo function that takes name and email (both string | null) and returns string
+function getUserInfo(name: string | null, email: string | null): string {
+  let processedName = getUserDisplayName(name);
+  let processedEmail = formatUserEmail(email);
+
+  return `Name: ${processedName}, Email: ${processedEmail}`;
+}
+/* Альтернативне рішення з стрілковою функцією та тернарним оператором
+const getUserInfo = (name: string | null, email: string | null): string =>
+  `Name: ${getUserDisplayName(name)}, Email: ${formatUserEmail(email)}` */
+
+// Test the functions and print the results
+console.log(getUserDisplayName("John Smith")); // John Smith
+console.log(getUserDisplayName(null)); // Anonymous User
+console.log(formatUserEmail("ALICE@EXAMPLE.COM")); // alice@example.com
+console.log(formatUserEmail(null)); // No email provided
+console.log(getUserInfo("Bob Johnson", "bob@test.com")); // Name: Bob Johnson, Email: bob@test.com
+console.log(getUserInfo(null, null)); // Name: Anonymous User, Email: No email provided
+console.log(getUserInfo("Sarah Wilson", null)); // Name: Sarah Wilson, Email: No email provided
+
+//============================== 45 =================================
+/*
+  Create an interface for a product catalog system where product categories
+  and their stock quantities are stored dynamically.
+  
+  Create an interface named ProductCatalog that uses an index signature
+  to map string keys (product names) to number values (stock quantities).
+  
+  Create a function named getStockLevel that:
+  - Takes two parameters: catalog of type ProductCatalog and productName of type string
+  - Returns the stock quantity for the given product name
+  - Returns 0 if the product doesn't exist in the catalog
+  - Has an explicit return type of number.
+
+  Create a function named updateStock that:
+  - Takes three parameters: catalog of type ProductCatalog, productName of
+    type string, and newQuantity of type number;
+    - Updates the stock quantity for the given product;
+    - Returns void.
+
+  Create a function named getTotalStock that:
+  - Takes a parameter catalog of type ProductCatalog;
+  - Returns the sum of all stock quantities in the catalog;
+  - Has an explicit return type of number;
+
+  Create test data:
+  Create inventory of type ProductCatalog with the following products:
+    - "laptop": 15
+    - "mouse": 50
+    - "keyboard": 25
+    - "monitor": 8
+
+  Test your functions and print the following outputs:
+  - Call getStockLevel with inventory and "laptop";
+  - Call getStockLevel with inventory and "tablet";
+  - Call getTotalStock with inventory;
+  - Call updateStock with inventory, "mouse", and 75;
+  - Call updateStock with inventory, "webcam", and 12;
+  - Call getStockLevel with inventory and "mouse";
+  - Call getStockLevel with inventory and "webcam";
+  - Call getTotalStock with inventory.
+ */
+
+// Solution:
+// Create the ProductCatalog interface
+interface ProductCatalog {
+  [key: string]: number;
+}
+
+// Create the getStockLevel function
+function getStockLevel(catalog: ProductCatalog, productName: string): number {
+  return catalog[productName] !== undefined ? catalog[productName] : 0;
+}
+
+// Create the updateStock function
+function updateStock(
+  catalog: ProductCatalog,
+  productName: string,
+  newQuantity: number,
+): void {
+  catalog[productName] = newQuantity;
+}
+
+// Create the getTotalStock function
+function getTotalStock(catalog: ProductCatalog): number {
+  return Object.values(catalog).reduce((acc, qty) => acc + qty, 0);
+}
+
+// Create test data - inventory object
+let inventory: ProductCatalog = {
+  laptop: 15,
+  mouse: 50,
+  keyboard: 25,
+  monitor: 8,
+};
+
+// Tests
+console.log(getStockLevel(inventory, "laptop")); // 15
+console.log(getStockLevel(inventory, "tablet")); // 0
+console.log(getTotalStock(inventory)); // 98
+
+updateStock(inventory, "mouse", 75);
+updateStock(inventory, "webcam", 12);
+
+console.log(getStockLevel(inventory, "mouse")); // 75
+console.log(getStockLevel(inventory, "webcam")); // 12
+console.log(getTotalStock(inventory)); // 135
+
+//============================== 45 =================================
+/*
+  Create a configuration management system that processes dynamic settings
+  using index signatures, type guards, and type assertions.
+
+  Create an interface named AppConfig that uses an index signature to map 
+  string keys to values of type string | number | boolean.
+
+  Create a function named validateConfigValue that:
+  - Takes two parameters: config of type AppConfig and key of type string;
+  - Returns "missing" if the key doesn't exist in the config
+  - Uses type guards to check the actual type of the value;
+  - Returns "string" if the value is a string;
+  - Returns "number" if the value is a number;
+  - Returns "boolean" if the value is a boolean;
+  - Has an explicit return type of string.
+
+  Create a function named getConfigAsString that:
+  - Takes two parameters: config of type AppConfig and key of type string;
+  - Returns "undefined" if the key doesn't exist;
+  - Uses a type assertion to treat the value as string and returns it if the value exists;
+  - Has an explicit return type of string.
+
+  Create a function named processConfig that:
+  - Takes two parameters: config of type AppConfig and key of type string;
+  - Uses validateConfigValue to check the type;
+  - Returns the value converted to uppercase if it's a string;
+  - Returns the value multiplied by 10 if it's a number;
+  - Returns the opposite boolean value if it's a boolean;
+  - Returns null if the key is missing;
+  - Has an explicit return type of string | number | boolean | null.
+
+  Create test data:
+  Create settings of type AppConfig with:
+    - "appName": "MyApp"
+    - "version": 2.1
+    - "debugMode": true
+    - "maxUsers": 100
+    - "theme": "dark"
+
+  Test your functions and print the following outputs:
+    Call validateConfigValue with settings and "appName";
+    Call validateConfigValue with settings and "version";
+    Call validateConfigValue with settings and "debugMode";
+    Call validateConfigValue with settings and "timeout";
+    Call getConfigAsString with settings and "theme";
+    Call getConfigAsString with settings and "missing";
+    Call processConfig with settings and "appName";
+    Call processConfig with settings and "maxUsers";
+    Call processConfig with settings and "debugMode";
+    Call processConfig with settings and "invalid".
+*/
+
+// Solution:
+// Create the AppConfig interface
+interface AppConfig {
+  [key: string]: string | number | boolean;
+}
+// Create the validateConfigValue function
+function validateConfigValue(config: AppConfig, key: string): string {
+  if (!(key in config)) {
+    return "missing";
+  }
+  const value = config[key];
+  if (typeof value === "string") return "string";
+  if (typeof value === "number") return "number";
+  if (typeof value === "boolean") return "boolean";
+  return "missing";
+}
+
+// Create the getConfigAsString function
+function getConfigAsString(config: AppConfig, key: string): string {
+  if (!(key in config)) {
+    return "undefined";
+  }
+  return config[key] as string;
+}
+
+// Create the processConfig function
+function processConfig(
+  config: AppConfig,
+  key: string,
+): string | number | boolean | null {
+  const type = validateConfigValue(config, key);
+  if (type === "missing") return null;
+
+  const value = config[key];
+  if (typeof value === "string") return value.toUpperCase();
+  if (typeof value === "number") return value * 10;
+  if (typeof value === "boolean") return !value;
+  return null;
+}
+
+// Create test data - settings object
+const settings: AppConfig = {
+  appName: "MyApp",
+  version: 2.1,
+  debugMode: true,
+  maxUsers: 100,
+  theme: "dark",
+};
+
+// Tests
+console.log(validateConfigValue(settings, "appName")); // string
+console.log(validateConfigValue(settings, "version")); // number
+console.log(validateConfigValue(settings, "debugMode")); // boolean
+console.log(validateConfigValue(settings, "timeout")); // missing
+
+console.log(getConfigAsString(settings, "theme")); // dark
+console.log(getConfigAsString(settings, "missing")); // undefined
+
+console.log(processConfig(settings, "appName")); // MYAPP
+console.log(processConfig(settings, "maxUsers")); // 1000
+console.log(processConfig(settings, "debugMode")); // false
+console.log(processConfig(settings, "invalid")); // null
